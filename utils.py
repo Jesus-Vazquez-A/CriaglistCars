@@ -12,7 +12,7 @@ import json
 import torch.nn as nn
 import torch.nn.functional as F
 import torch
-import warnings
+
 
 
 # In[2]:
@@ -25,11 +25,11 @@ warnings.filterwarnings('ignore')
 
 
 def scalerInputs(x):
-    scaler = joblib.load("C:\\Users\\amado\\Desktop\\app\\scaler.pkl")
+    scaler = joblib.load("scaler.pkl")
     return scaler.transform(x)
 
 def robustTarget(pred):
-    robust = joblib.load("C:\\Users\\amado\\Desktop\\app\\robust.pkl")
+    robust = joblib.load("robust.pkl")
     return robust.inverse_transform(pred)
 
 
@@ -38,7 +38,7 @@ def robustTarget(pred):
 
 def loadJsonFile():
        
-       with open("C:\\Users\\amado\\Desktop\\app\\columns.json") as F:
+       with open("columns.json") as F:
            
            json_file = json.loads(F.read())
            json_file = np.asarray(json_file['columns'])
@@ -69,6 +69,6 @@ class Model(nn.Module):
 def loadModel():
     model = Model()
     model.to('cpu')
-    model.load_state_dict(torch.load("C:\\Users\\amado\\Desktop\\app\\craiglist_model.pth",map_location ='cpu'))
+    model.load_state_dict(torch.load("craiglist_model.pth",map_location ='cpu'))
     return model
     
