@@ -37,12 +37,12 @@ def UserInputs():
        'toyota', 'volkswagen']
     
     manufacturer =  st.selectbox("Manufacturer", manufacturer_list)
-    body = st.selectbox("Type Body", ['sedan','crossover','hatchback','SUV','coupe','pickup','mini-van'])
-    year = st.slider('Year',min_value = 2000,max_value = 2023,step = 1)
+    body = st.selectbox("Type Body", ['sedan','crossover','hatchback','SUV','coupe','pickup','mini-van','fastback','convertible'])
+    year = st.number_input('Year',min_value = 2000,max_value = 2024,step = 1)
     odometer = st.number_input("Odometer:", min_value=0,max_value = 200000)
     cyl = st.number_input("Cylinders", min_value = 0,max_value=8, step=1)
     engine = st.number_input("Engine",min_value=0.0,max_value = 6.2,step = 0.1)
-    fuel = st.selectbox("Fuel:", ["gas", "diesel", "electric", "hybrid","hydrogen","other"])
+    fuel = st.selectbox("Fuel:", ["gas", "diesel", "electric", "hybrid"])
     transmission = st.selectbox("Transmission:", ["automatic", "manual"])
     hp = st.number_input("HP", min_value=1, step=1)
     title_status = st.selectbox("Title Status", ["missing","lein","salvage","rebuilt","clean"])
