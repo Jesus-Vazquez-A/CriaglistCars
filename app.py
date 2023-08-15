@@ -36,7 +36,7 @@ def UserInputs():
        'hyundai', 'infiniti', 'jeep', 'kia', 'lexus', 'mazda',
        'mercedes-benz', 'mitsubishi', 'nissan', 'subaru', 'acura',
        'toyota', 'volkswagen']
-   models_list = models_names['models']
+
     
     manufacturer =  st.selectbox("Manufacturer: ", manufacturer_list)
     model_car =  st.selectbox("Model: ", model_list)
