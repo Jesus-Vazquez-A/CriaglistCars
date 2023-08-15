@@ -52,7 +52,7 @@ def loadJsonModels():
            json_file = json.loads(F.read())
            json_file = np.asarray(json_file['models'])
            
-           return json_file
+           return json_file.flatten()
 
 
 # In[7]:
