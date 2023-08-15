@@ -82,7 +82,6 @@ def preprocessing():
     manufacturer_idx = np.where(manufacturer == columns)[0][0]
     fuel_idx = np.where(fuel == columns)[0][0]
     type_body_idx = np.where(body == columns)[0][0]
-    country_idx = np.where(country == columns)[0][0]
     model_idx = np.where(model_car == columns)[0][0]
 
     if manufacturer_idx >= 0:
@@ -96,8 +95,7 @@ def preprocessing():
     if type_body_idx>=0:
         zeros[type_body_idx] = 1
 
-    if country_idx>=0:
-        zeros[country_idx] = 1
+
 
 
     if model_idx>=0:
