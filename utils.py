@@ -36,7 +36,7 @@ def robustTarget(pred):
 # In[4]:
 
 
-def loadJsonFile():
+def loadJsonColumns():
        
        with open("columns.json") as F:
            
