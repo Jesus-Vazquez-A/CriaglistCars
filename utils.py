@@ -45,6 +45,15 @@ def loadJsonColumns():
            
            return json_file
 
+def loadJsonModels():
+       
+       with open("models.json") as F:
+           
+           json_file = json.loads(F.read())
+           json_file = np.asarray(json_file['models'])
+           
+           return json_file
+
 
 # In[7]:
 
