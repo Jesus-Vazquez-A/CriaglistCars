@@ -22,7 +22,7 @@ warnings.filterwarnings('ignore')
 
 columns = utils.loadJsonColumns()
 model = utils.loadModel()
-models_names = utils.loadJsonModels()
+model_names = utils.loadJsonModels()
 
 
 # In[13]:
@@ -31,7 +31,7 @@ st.cache(allow_output_mutation=True)
 
 def UserInputs():
  
-    manufacturer_list = ['tesla', 'audi', 'bmw', 'cadillac',
+    manufacturer_list = ['audi', 'bmw', 'cadillac',
        'chevrolet', 'chrysler', 'dodge', 'ford', 'gmc', 'honda',
        'hyundai', 'infiniti', 'jeep', 'kia', 'lexus', 'mazda',
        'mercedes-benz', 'mitsubishi', 'nissan', 'subaru', 'acura',
@@ -39,7 +39,7 @@ def UserInputs():
 
     
     manufacturer =  st.selectbox("Manufacturer: ", manufacturer_list)
-    model_car =  st.selectbox("Model: ", model_list)
+    model_car =  st.selectbox("Model: ", model_names)
     body = st.selectbox("Type Body: ", ['sedan','crossover','hatchback','SUV','coupe','pickup','mini-van','fastback','convertible'])
     year = st.number_input('Year: ',min_value = 2000,max_value = 2024,step = 1)
     odometer = st.number_input("Mileage: ", min_value=0,max_value = 200000)
@@ -67,10 +67,7 @@ def preprocessing():
     zeros[3] = title_status_dict[title_status]
     zeros[4] = np.where(transmission=="automatic",1,0)
     
-    if manufacturer == "tesla" or fuel == "electric":
-        zeros[4]  = 1
-        zeros[5] = 0
-        zeros[6] = 0
+
     
     
     
