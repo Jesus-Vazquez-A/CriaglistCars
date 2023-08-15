@@ -20,7 +20,7 @@ warnings.filterwarnings('ignore')
 # In[12]:
 
 
-columns = utils.loadJsonFile()
+columns = utils.loadJsonColumns()
 model = utils.loadModel()
 
 
