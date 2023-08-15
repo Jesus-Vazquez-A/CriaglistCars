@@ -22,6 +22,7 @@ warnings.filterwarnings('ignore')
 
 columns = utils.loadJsonColumns()
 model = utils.loadModel()
+models_names = utils.loadJsonModels()
 
 
 # In[13]:
@@ -35,8 +36,10 @@ def UserInputs():
        'hyundai', 'infiniti', 'jeep', 'kia', 'lexus', 'mazda',
        'mercedes-benz', 'mitsubishi', 'nissan', 'subaru', 'acura',
        'toyota', 'volkswagen']
+   models_list = models_names['models']
     
     manufacturer =  st.selectbox("Manufacturer: ", manufacturer_list)
+    model_car =  st.selectbox("Model: ", model_list)
     body = st.selectbox("Type Body: ", ['sedan','crossover','hatchback','SUV','coupe','pickup','mini-van','fastback','convertible'])
     year = st.number_input('Year: ',min_value = 2000,max_value = 2024,step = 1)
     odometer = st.number_input("Mileage: ", min_value=0,max_value = 200000)
@@ -48,14 +51,14 @@ def UserInputs():
     title_status = st.selectbox("Title Status: ", ["missing","lein","salvage","rebuilt","clean"])
     
 
-    return manufacturer,body,year,odometer,cyl,engine,fuel,transmission,hp,title_status
+    return manufacturer,model_car,body,year,odometer,cyl,engine,fuel,transmission,hp,title_status
 
 
 # In[14]:
 
 
 def preprocessing():
-    manufacturer,body,year,odometer,cyl,engine,fuel,transmission,hp,title_status = UserInputs()
+    manufacturer,model_car,body,year,odometer,cyl,engine,fuel,transmission,hp,title_status = UserInputs()
     zeros = np.zeros(len(columns))
     title_status_dict = {'missing':0,'lien':1,'salvage':2,'rebuilt':3,'clean':4}
     zeros[0] = year
@@ -86,6 +89,7 @@ def preprocessing():
     manufacturer_idx = np.where(manufacturer == columns)[0][0]
     fuel_idx = np.where(fuel == columns)[0][0]
     type_body_idx = np.where(body == columns)[0][0]
+    model_car_idx = np.where(model_car == columns)[0][0]
     
     american = ['ford','chevrolet','jeep','dodge','chrysler','cadillac','gmc','tesla']
     japan = ['nissan','honda','toyota','mazda','mitsubishi','subaru','infiniti','acura','lexus']
@@ -116,6 +120,9 @@ def preprocessing():
 
     if type_body_idx>=0:
         zeros[type_body_idx] = 1
+
+    if model_car_idx>=0:
+        zeros[model_car_idx] = 1
 
 
 
