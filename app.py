@@ -58,7 +58,11 @@ def UserInputs():
 
 
 def preprocessing():
+
     manufacturer,model_car,body,year,odometer,cyl,engine,fuel,transmission,hp,title_status = UserInputs()
+    
+    model_car = model_car.lower()
+    
     zeros = np.zeros(len(columns))
     title_status_dict = {'missing':0,'lien':1,'salvage':2,'rebuilt':3,'clean':4}
     zeros[0] = year
@@ -66,16 +70,8 @@ def preprocessing():
     zeros[2] = np.sqrt(odometer)
     zeros[3] = title_status_dict[title_status]
     zeros[4] = np.where(transmission=="automatic",1,0)
-    
-
-    
-    
-    
     zeros[5] = engine
     zeros[6] = hp
-    
-    
-    
     premium_list =  ['gmc','cadillac','audi','bmw','mercedes-benz','infiniti','acura','lexus']
     if manufacturer in premium_list:
         zeros[7] = 1
@@ -86,26 +82,8 @@ def preprocessing():
     manufacturer_idx = np.where(manufacturer == columns)[0][0]
     fuel_idx = np.where(fuel == columns)[0][0]
     type_body_idx = np.where(body == columns)[0][0]
-    model_car_idx = np.where(model_car == columns)[0][0]
-    
-    american = ['ford','chevrolet','jeep','dodge','chrysler','cadillac','gmc','tesla']
-    japan = ['nissan','honda','toyota','mazda','mitsubishi','subaru','infiniti','acura','lexus']
-    germany = ['bmw','mercedes-benz','audi','volkswagen']
-    south_korea = ['kia','hyundai']
-    
-    if manufacturer in germany:
-        
-        zeros[52] = 1
-    
-    if manufacturer in japan:
-        zeros[53] = 1
-        
-    if manufacturer in south_korea:
-        zeros[54] = 1
-    
-    if manufacturer in american:
-        zeros[55] = 1
-        
+    country_idx = np.where(country == columns)[0][0]
+    model_idx = np.where(model_car == columns)[0][0]
 
     if manufacturer_idx >= 0:
         zeros[manufacturer_idx] = 1
@@ -118,14 +96,41 @@ def preprocessing():
     if type_body_idx>=0:
         zeros[type_body_idx] = 1
 
-    if model_car_idx>=0:
-        zeros[model_car_idx] = 1
+    if country_idx>=0:
+        zeros[country_idx] = 1
 
 
+    if model_idx>=0:
+        zeros[model_idx] = 1
+
+
+    american = ['ford','chevrolet','jeep','dodge','chrysler','cadillac','gmc','tesla']
+    japan = ['nissan','honda','toyota','mazda','mitsubishi','subaru','infiniti','acura','lexus']
+    germany = ['bmw','mercedes-benz','audi','volkswagen']
+    south_korea = ['kia','hyundai']
+    
+    if manufacturer in germany:
+        
+        zeros[421] = 1
+    
+    if manufacturer in japan:
+        zeros[422] = 1
+        
+    if manufacturer in south_korea:
+        zeros[423] = 1
+    
+    if manufacturer in american:
+        zeros[424] = 1
+
+ 
 
     zeros = np.asarray([zeros])
+
+
     zeros = utils.scalerInputs(zeros)
     zeros = torch.from_numpy(zeros).float()
+
+
 
 
     return zeros
